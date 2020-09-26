@@ -94,3 +94,48 @@ if ( ! function_exists( 'davis_add_block_editor_features' ) ) :
 	}
 	add_action( 'after_setup_theme', 'davis_add_block_editor_features' );
 endif;
+
+/* MICROFORMATS V2 SUPPORT
+------------------------------------------------ */
+
+/**
+ * Adds custom classes to the array of body classes.
+ *
+ * @param array $classes Classes for the body element.
+ * @return array
+ */
+function body_classes( $classes ) {
+	// Adds a class of hfeed to non-singular pages.
+	if ( ! is_singular() ) {
+		$classes[] = 'hfeed';
+		$classes[] = 'h-feed';
+	} else {
+		if ( 'page' !== get_post_type() ) {
+				$classes[] = 'hentry';
+				$classes[] = 'h-entry';
+		}
+	}
+	return $classes;
+}
+add_filter( 'body_class', 'body_classes' );
+
+/**
+ * Adds custom classes to the array of post classes.
+ *
+ * @param array $classes Classes for the body element.
+ * @return array
+ */
+function post_classes( $classes ) {
+	$classes = array_diff( $classes, array( 'hentry' ) );
+	if ( ! is_singular() ) {
+		if ( 'page' !== get_post_type() ) {
+			// Adds a class for microformats v2
+			$classes[] = 'h-entry';
+			// add hentry to the same tag as h-entry
+			$classes[] = 'hentry';
+		}
+	}
+	return $classes;
+}
+
+add_filter( 'post_class', 'post_classes' );
