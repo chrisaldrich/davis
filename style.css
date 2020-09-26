@@ -1,0 +1,890 @@
+/*---------------------------------------------------------------------------------
+
+	Theme Name: Davis
+    Text Domain: davis
+	Version: 2.0.0
+	Description: Davis is a teeny-tiny WordPress theme that can be used a starter theme or a really lightweight blog theme. It consists of three PHP files and weighs in at just 36 KB, excluding screenshot.png. It features the aside post format, Block Editor support, featured images, and a responsive design. Demo: https://www.andersnoren.se/themes/davis/
+	Tags: blog, one-column, custom-menu, featured-images, post-formats, threaded-comments, translation-ready, block-styles, wide-blocks
+	Author: Anders Norén
+	Author URI: https://www.andersnoren.se
+	License: GNU General Public License version 2.0
+	License URI: http://www.gnu.org/licenses/gpl-2.0.html
+	Theme URI: https://www.andersnoren.se/themes/davis-wordpress-theme/
+	
+	All files, unless otherwise stated, are released under the GNU General Public License
+	version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+
+-----------------------------------------------------------------------------------
+
+	0.	CSS Reset
+	1.	Document Setup
+	2.  Structure
+	3.	Header
+	4.	Blog
+	5.  Entry Content
+	6.	Comments
+	7.	Pagination
+	8.	Error 404
+	9.	Footer
+	10. Media Queries
+
+----------------------------------------------------------------------------------- */
+
+
+/* -------------------------------------------------------------------------------- */
+/*	0. CSS Reset
+/* -------------------------------------------------------------------------------- */
+
+
+html, body { 
+    margin: 0; 
+    padding: 0; 
+    height: 100%; 
+    min-height: 100%; 
+}
+
+h1, h2, h3, h4, h5, h6, p, blockquote, address, big, cite, code, em, font, img, small, strike, sub, sup, li, ol, ul, fieldset, form, label, legend, button, table, caption, tr, th, td {
+	margin:0;
+	padding:0;
+	border:0;
+	font-weight:normal;
+	font-style:normal;
+	font-size:100%;
+	line-height:1;
+	text-align:left;
+}
+
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+
+ol, ul { list-style:none; }
+
+blockquote:before, 
+blockquote:after { content:""; }
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Screen Reader Text */
+
+.screen-reader-text {
+	clip: rect( 1px, 1px, 1px, 1px );
+	height: 1px;
+	overflow: hidden;
+    position: absolute !important;
+    width: 1px;
+}
+
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: 700;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar. */
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	1. Document Setup
+/* -------------------------------------------------------------------------------- */
+
+
+body {
+    background-color: #fff;
+	border: none;
+    color: #000;
+    font-size: 18px;
+}
+
+body * {
+        -webkit-box-sizing: border-box; 
+        -moz-box-sizing: border-box; 
+	box-sizing: border-box; 
+    font-family: 'PT Serif', Georgia, serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a,
+a:hover {
+	color: #000;
+}
+
+body a:hover,
+body a:focus { 
+	text-decoration: underline; 
+}
+
+img {
+	display: block;
+	height: auto;
+    max-width: 100%;
+}
+
+iframe {
+	display: block;
+	width: 100%;
+}
+
+.clear { clear: both; }
+
+::selection {
+	background: #000;
+	color: #FFF;
+}
+
+input::-webkit-input-placeholder { color: #767676; }
+input:-ms-input-placeholder { color: #767676; }
+input::-moz-placeholder { color: #767676; }
+
+
+/* -------------------------------------------------------------------------------- */
+/*	2.	Structure
+/* -------------------------------------------------------------------------------- */
+
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 90%;
+	width: 620px;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	3.	Site Header
+/* -------------------------------------------------------------------------------- */
+
+
+.site-header { 
+    margin: 0 auto 100px auto;
+    width: 90%;
+}
+
+.toggle-menu {
+	background: none;
+	border-radius: 0;
+	box-shadow: none;
+	font-size: 14px;
+	letter-spacing: 1px;
+	margin: 20px auto 0 auto;
+	text-transform: uppercase;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+.show-menu .toggle-menu { 
+	text-decoration: line-through; 
+}
+
+.site-nav { 
+	margin: 20px 0 0; 
+}
+
+@media ( min-width: 620px ) {
+
+    .toggle-menu { display: none; }
+
+	.menu {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+    .menu li { position: relative; }
+    .menu > li { margin: 10px 15px 0 15px; }
+
+    .menu .page_item_has_children > a:after,
+    .menu .menu-item-has-children > a:after { 
+        content: " ↓"; 
+        font-family: 'Helvetica', sans-serif;
+    }
+
+    .menu ul {
+        margin-left: -100px;
+        position: absolute;
+            left: -10000px;
+            top: 15px;
+        width: 200px;
+		z-index: 1;
+    }
+    
+    .menu > li > ul {
+        font-size: 0.9em;
+        padding-top: 20px;
+    }
+
+    .menu li ul:before {
+        border: 6px solid transparent;
+        border-bottom-color: #000;
+        content: "";
+        display: block;
+        margin-left: -6px;
+        position: absolute;
+            left: 50%;
+            top: 8px;
+    }
+	
+    .menu ul a {
+        background: #000;
+        color: #fff;
+        display: block;
+        padding: 15px;
+        text-align: center;
+    }
+	
+    .menu ul a:hover { color: #fff; }
+
+	.menu > li:hover > ul,
+	.menu ul.focusable {
+		left: 50%;
+    }
+    
+    .menu ul li ul {
+        margin: 0;
+        padding-left: 20px;
+        top: 0;
+        width: 220px;
+    }
+    
+    .menu ul li ul:before {
+        border-color: transparent;
+        border-right-color: #000;
+        left: 14px;
+        top: 18px;
+    }
+
+	.menu ul li:hover > ul,
+	.menu ul ul.focusable {
+        left: 200px;
+    }
+
+}
+
+.site-header {
+	text-align: center;
+}
+
+.site-header .site-title {
+    font-size: 1.5em;
+	font-weight: 700;
+	line-height: 1;
+    margin-top: 80px;
+	text-align: center;
+}
+
+.site-header .site-description {
+    line-height: 1.5;
+	margin: 20px auto 0 auto;
+	max-width: 620px;
+	text-align: center;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	4.	Blog
+/* -------------------------------------------------------------------------------- */
+
+
+.archive-header {
+	margin: 0;
+	text-align: center;
+	width: 100%;
+}
+
+.archive-title {
+	font-weight: 700;
+	line-height: 1.4;
+	text-align: inherit;
+}
+
+.archive-description {
+	margin-top: 30px;
+}
+
+.archive-description p {
+	text-align: inherit;
+}
+
+.archive-header:before,
+.post:before,
+.comments:before,
+.comment-respond:before,
+.comments .comment-respond:after,
+.pagination:before,
+.site-footer:before {
+    background: url( assets/images/sep.png ) no-repeat center;
+    background-size: auto 100%;
+	content: "";
+	display: block;
+	height: 16px;
+	margin: 80px auto;
+}
+
+.entry-title {
+    line-height: 1.4;
+	text-align: center;
+}
+
+.featured-image { 
+    display: block;
+    margin: 0 auto 30px auto; 
+}
+
+.meta {
+    color: #767676;
+	margin-top: 30px;
+}
+
+.post .meta p { 
+	line-height: 1.55;
+    margin-bottom: 0;
+    text-align: center; 
+}
+
+span.sep { margin: 0 15px; }
+
+.meta p + p { margin-top: 15px; }
+
+.meta a,
+.meta a:hover { color: #767676; }
+
+.sticky {}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	5.	Entry Content
+/* -------------------------------------------------------------------------------- */
+
+
+.content * { max-width: 100%; }
+
+.content a { text-decoration: underline; }
+
+.content a:hover { 
+	color: #767676;
+	text-decoration: underline; 
+}
+
+em {
+    font-style: italic;
+}
+
+.post p { 
+	line-height: 1.55;
+	margin-bottom: 30px; 
+}
+
+.post p:last-child { margin-bottom: 0; }
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6 {
+    font-weight: 700;
+	margin-bottom: 30px;
+}
+
+.post hr {
+	border: none;
+	margin: 40px 0;
+    text-align: center;
+}
+
+.post hr:before { content: "***"; }
+
+.content > ol,
+.content > ul {
+    margin-bottom: 30px;
+}
+
+.post ol,
+.post ul {
+    margin-left: 1.5rem;
+}
+
+.post ul { list-style: disc; }
+.post ul ul { list-style: circle; }
+.post ul ul ul { list-style: square; }
+
+.post ol { list-style: decimal; }
+.post ol ol { list-style: lower-alpha; }
+.post ol ol ol { list-style: lower-roman; }
+
+.post li {
+    line-height: 1.5;
+	margin-top: 0.5em;
+}
+
+dd,
+dt {
+	line-height: 1.5;
+}
+
+dd + dt { margin-top: 15px; }
+
+pre {
+	font-family: Menlo, monospace;
+	font-size: 0.9em;
+	line-height: 1.5;
+	white-space: pre-wrap;       /* css-3 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+/* Quotes ----------------------------- */
+
+blockquote {
+	border-left: 1px solid #ccc;
+    margin: 0 0 30px 0;
+    padding: 0 0 0 30px;
+}
+
+blockquote p { font-style: italic; }
+
+blockquote cite:before { content: "— "; }
+
+/* Media ------------------------------ */
+
+figure {
+	margin: 0;
+}
+
+.alignleft,
+.alignright {
+	margin-bottom: 20px;
+    max-width: 50%;
+}
+
+.alignleft {
+	float: left;
+	margin-right: 20px;
+}
+
+.alignright {
+	float: right;
+	margin-left: 30px;
+}
+
+.aligncenter,
+.alignnone,
+.alignwide,
+.alignfull { 
+	margin: 0 auto 30px auto; 
+}
+
+figcaption,
+.gallery-caption,
+.wp-caption-text {
+    font-size: 0.9em;
+    font-style: italic;
+	margin-top: 10px;
+}
+
+.aligncenter .wp-caption-text { text-align: center; }
+.alignright .wp-caption-text { text-align: right; }
+
+/* GUTENBERG CLASSES */
+
+.alignfull {
+	position: relative;
+		left: calc( 50% - 50vw );
+	max-width: 100vw;
+	width: 100vw;
+}
+
+/* Inputs ----------------------------- */
+
+fieldset {
+    border: 1px solid #ddd;
+	padding: 25px;
+}
+
+fieldset legend {
+    font-size: 0.9em;
+    font-style: italic;
+	padding: 0 15px;
+}
+
+label {
+	font-size: 0.9em;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+textarea,
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+input[type="url"] {
+    border: 1px solid #ddd;
+    color: #000;
+	display: block;
+	font-size: 0.9em;
+    margin: 0 0 15px 0;
+    padding: 15px;
+    width: 100%;
+}
+
+textarea {
+    line-height: 1.5;
+	height: 200px;
+}
+
+input.button,
+input[type="button"],
+input[type="submit"] {
+	background: #000;
+    border: none;
+    color: #fff;
+    display: inline-block;
+	font-size: 14px;
+    padding: 14px 24px;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+
+input[type="button"]:hover,
+input.button:hover,
+input[type="submit"]:hover {
+	background: #767676;
+	cursor: pointer;
+}
+
+/* Tables ----------------------------- */
+
+table {
+	border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    font-size: 0.9em;
+    margin-bottom: 30px;
+    max-width: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+th,
+td {
+    line-height: 1.4;
+	margin: 0;
+	overflow: visible;
+    padding: 2.5%;
+}
+
+caption {
+    border-bottom: 1px solid #ddd;
+	font-size: 13px;
+	font-weight: 700;
+    padding-bottom: 2.5%;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+thead {
+	vertical-align: bottom;
+	white-space: nowrap;
+}
+
+th { 
+	border-bottom: 1px solid #ddd;
+	font-weight: 700; 
+}
+
+tbody > tr:nth-child(even) { background-color: #f6f6f6; }
+
+/* Block Editor Accent Colors ---------------- */
+
+.has-background { background-color: #000; }
+
+.has-black-color { color: #000; }
+.has-black-background-color { background-color: #000; }
+
+.has-white-color { color: #fff; }
+.has-white-background-color { background-color: #fff; }
+
+/* Block: Image ------------------------------ */
+
+.wp-block-image .aligncenter > figcaption, 
+.wp-block-image .alignleft > figcaption, 
+.wp-block-image .alignright > figcaption, 
+.wp-block-image.is-resized > figcaption {
+	display: block;
+	width: 100%;
+}
+
+/* Block: File --------------------------------------- */
+
+.wp-block-file {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin: 30px 0;
+}
+
+.wp-block-file a:not(.wp-block-file__button) {
+	text-decoration: none;
+}
+
+.wp-block-file__button:hover,
+.wp-block-button__link:hover {
+	opacity: .85;
+	text-decoration: none;
+}
+
+/* Block: Quote --------------------------------------- */
+
+.wp-block-quote.is-large {
+	margin-bottom: 30px;
+}
+
+.wp-block-quote.is-large p, 
+.wp-block-quote.is-style-large p {
+	font-size: 1.33em;
+	line-height: 1.5;
+}
+
+/* Block: Pullquote --------------------------------------- */
+
+.wp-block-pullquote {
+	padding: 0;
+}
+
+/* Block: Gallery --------------------------------------- */
+
+.wp-block-gallery .blocks-gallery-image figcaption, 
+.wp-block-gallery .blocks-gallery-item figcaption {
+	margin: 0;
+	padding-bottom: 10px;
+}
+
+.wp-block-gallery.alignfull {
+	padding: 0 8px;
+}
+
+ul.wp-block-gallery:not(.alignright) {
+	margin-left: 0;
+}
+
+/* Block: Cover Image --------------------------------------- */
+
+.wp-block-cover-image.alignfull {
+	min-height: 75vh;
+}
+
+/* Block: Column --------------------------------------- */
+
+.wp-block-column {
+	padding: 0 5px;
+}
+
+/* Block: Audio --------------------------------------- */
+
+.wp-block-audio audio {
+	width: 100%;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	6.	Comments
+/* -------------------------------------------------------------------------------- */
+
+
+.comments-closed { text-align: center; }
+
+.comment { margin-top: 40px; }
+
+.comment a { text-decoration: underline; }
+
+.commentlist > .comment:first-child { margin-top: 0; }
+
+.comment .comment { margin: 40px 0 0 30px; }
+
+.comment-author a,
+.comment-meta a,
+.comment .reply a {
+    text-decoration: none;
+}
+
+.comment-author {
+    padding-left: 50px;
+    position: relative;
+}
+
+.bypostauthor .comment-author cite { font-weight: 700; }
+
+.comment-author .says { display: none; }
+
+.comment-author .avatar {
+    position: absolute;
+        left: 0;
+        top: 1px;
+    width: 40px;
+}
+
+.comment-awaiting-moderation {
+    font-size: 14px;
+    font-style: italic;
+    padding-left: 50px;
+}
+
+.comment-meta { 
+    font-size: 14px;
+    margin: 2px 0 20px 0;
+    padding-left: 50px;
+}
+
+.comment-meta a,
+.comment-meta a:hover { color: #767676; }
+
+.comment .reply {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.comment .reply a { color: #767676; }
+.comment .reply a:hover { text-decoration: underline; }
+
+/* Respond ---------------------------- */
+
+.comment-respond p + p { margin-top: 20px; }
+
+.post .comment-reply-title { text-align: center; }
+
+.logged-in-as { 
+    margin: -10px 0 30px; 
+    text-align: center;
+}
+
+.comment-respond label { display: block; }
+
+
+/* -------------------------------------------------------------------------------- */
+/*	7.	Pagination
+/* -------------------------------------------------------------------------------- */
+
+
+.pagination { text-align: center; }
+.pagination * + * { margin-left: 30px; }
+
+
+/* -------------------------------------------------------------------------------- */
+/*	8.	Error 404
+/* -------------------------------------------------------------------------------- */
+
+
+.error404 .post p {
+	text-align: center;
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	9.	Footer
+/* -------------------------------------------------------------------------------- */
+
+
+.site-footer { 
+	padding: 0 0 80px;
+	text-align: center;
+}
+
+.site-footer p { 
+    line-height: 1;
+	text-align: center; 
+}
+
+.site-footer p + p { 
+    font-style: italic;
+    margin-top: 15px; 
+}
+
+
+/* -------------------------------------------------------------------------------- */
+/*	10.	Media Queries
+/* -------------------------------------------------------------------------------- */
+
+
+@media ( max-width: 620px ) {
+
+    body { font-size: 16px; }
+    
+    .toggle-menu {
+		display: block;
+	}
+    
+    .site-nav { 
+        display: none;
+        margin: 20px 0 0;
+    }
+    
+    .menu li {
+        line-height: 1.5;
+        text-align: center;
+    }
+    
+    .menu li li { font-style: italic; }
+    
+    .show-menu .site-nav { display: block; }
+    
+    .site-header { margin-bottom: 40px; }
+    
+    .site-header .site-title { margin-top: 40px; }
+    
+    .post:before,
+    .comments:before,
+    .comment-respond:before,
+    .comments .comment-respond:after,
+    .pagination:before,
+    .site-footer:before {
+        margin: 50px auto;
+    }
+    
+    .featured-image {
+        margin-left: -50vw;
+        position: relative;
+            left: 50%;
+        width: 100vw;
+    }
+    
+    span.sep { margin: 0 10px; }
+    
+    .pagination a + a { margin-left: 20px; }
+    
+    .site-footer { padding-bottom: 50px; }
+
+}
+
+@media ( max-width: 500px ) {
+
+    .post:before, 
+    .comments:before, 
+    .comment-respond:before, 
+    .comments .comment-respond:after, 
+    .pagination:before, 
+    .site-footer:before {
+        margin: 30px auto;
+    }
+
+}
