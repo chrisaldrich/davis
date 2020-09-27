@@ -139,3 +139,18 @@ function post_classes( $classes ) {
 }
 
 add_filter( 'post_class', 'post_classes' );
+
+/**
+ * Wraps the_content in e-content
+ */
+function davis_the_content( $content ) {
+	if ( is_feed() ) {
+		return $content;
+	}
+	$wrap = '<div class="entry-content e-content">';
+	if ( empty( $content ) ) {
+		return $content;
+	}
+	return $wrap . $content . '</div>';
+}
+add_filter( 'the_content', 'davis_the_content', 1 );
