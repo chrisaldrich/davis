@@ -84,13 +84,13 @@
 						
 							?>
 
-                            <<?php echo $post_title_elem; ?> class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo $post_title_elem; ?>>
+                            <<?php echo $post_title_elem; ?> class="entry-title p-name"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo $post_title_elem; ?>>
 
                         <?php endif; ?>
                         
                         <?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
                         
-                            <a href="<?php the_permalink(); ?>" class="featured-image">
+                            <a href="<?php the_permalink(); ?>" class="featured-image u-featured">
                                 <?php the_post_thumbnail(); ?>    
                             </a>
                             
