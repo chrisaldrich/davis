@@ -84,7 +84,7 @@
 						
 							?>
 
-                            <<?php echo $post_title_elem; ?> class="entry-title p-name"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo $post_title_elem; ?>>
+                            <<?php echo $post_title_elem; ?> class="entry-title p-name"><a class="u-url" href="<?php the_permalink(); ?>"><?php the_title(); ?></a></<?php echo $post_title_elem; ?>>
 
                         <?php endif; ?>
                         
@@ -119,7 +119,7 @@
 
                                 <p>
                                 
-                                    <a href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
+                                    <a class="dt-published" href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
 
                                     <?php if ( comments_open() && ! post_password_required() ) : ?>
                                         <span class="sep"></span><?php comments_popup_link( __( 'Add Comment', 'davis' ), __( '1 Comment', 'davis' ), '% ' . __( 'Comments', 'davis' ), '', __( 'Comments off', 'davis' ) ); ?>
@@ -132,7 +132,7 @@
                                 </p>
 
                                 <?php if ( is_singular( 'post' ) ) : ?>
-                                    <p><?php _e( 'In', 'davis' ); ?> <?php the_category( ', ' ); ?></p>
+                                    <p class="p-category"><?php _e( 'In', 'davis' ); ?> <?php the_category( ', ' ); ?></p>
                                     <p><?php the_tags( ' #', ' #', ' ' ); ?></p>
                                 <?php endif; ?>
 
