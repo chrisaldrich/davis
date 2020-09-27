@@ -154,3 +154,19 @@ function davis_the_content( $content ) {
 	return $wrap . $content . '</div>';
 }
 add_filter( 'the_content', 'davis_the_content', 1 );
+
+/**
+ * Wraps the_excerpt in p-summary
+ */
+function davis_the_excerpt( $content ) {
+	if ( is_feed() ) {
+		return $content;
+	}
+	$wrap = '<div class="entry-summary p-summary">';
+	if ( ! empty( $content ) ) {
+		return $wrap . $content . '</div>';
+	}
+	return $content;
+}
+
+add_filter( 'the_excerpt', 'davis_the_excerpt', 1 );
