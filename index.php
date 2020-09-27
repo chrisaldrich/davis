@@ -118,7 +118,20 @@
                             <div class="meta">
 
                                 <p>
-                                
+
+									<?php 
+									if ( is_singular() || is_multi_author() ) {
+										$author_avatar_size = apply_filters( 'davis_author_avatar_size', 96 );
+										printf(
+										'<span class="byline"><span class="author h-card hcard vcard">%1$s<span class="screen-reader-text">%2$s </span><a class="p-name u-url url fn n" href="%3$s">%4$s</a></span></span><span class="sep"></span>',
+										get_avatar( get_the_author_meta( 'user_email' ), '96', $default, $alt, array('class' => array( 'u-photo', 'blankavatar' ) ) ),
+										_x( 'Author', 'Used before post author name.', 'davis' ),
+										esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+										get_the_author()
+										);
+									} 
+									?>
+
                                     <a class="dt-published" href="<?php the_permalink(); ?>"><?php the_time( get_option( 'date_format' ) ); ?></a>
 
                                     <?php if ( comments_open() && ! post_password_required() ) : ?>
